@@ -4,11 +4,13 @@ import org.jetbrains.kotlin.gradle.dsl.KotlinVersion
 plugins {
     kotlin("jvm")
     `java-library`
+    `maven-publish`
 }
 
 java {
     sourceCompatibility = JavaVersion.VERSION_11
     targetCompatibility = JavaVersion.VERSION_11
+    withSourcesJar()
 }
 
 kotlin {
@@ -25,4 +27,12 @@ dependencies {
     api("com.google.code.gson:gson:2.10.1")
 
     testImplementation("junit:junit:4.13.2")
+}
+
+publishing {
+    publications {
+        create<MavenPublication>("maven") {
+            from(components["java"])
+        }
+    }
 }
